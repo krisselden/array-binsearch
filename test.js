@@ -16,11 +16,16 @@ var inOutPairs = [
   [12, ~6]
 ];
 
+function comparator(a, b) {
+  return a - b;
+}
+
 function test(binsearch) {
   var ok = true;
   console.log("TAP version 13");
   console.log("# testing binary search of " + JSON.stringify(subject));
-  console.log("1.." + inOutPairs.length);
+  console.log("1.." + (inOutPairs.length * 2));
+  console.log("# without comparator");
   inOutPairs.forEach(function ([input, expected], i) {
     var count = i + 1;
     var actual = binsearch(subject, input);
@@ -31,7 +36,17 @@ function test(binsearch) {
       console.log("not ok " + count + " - expected output for input " + input + " to be " + expected + " but was " + actual);
     }
   });
-
+  console.log("# with comparator");
+  inOutPairs.forEach(function ([input, expected], i) {
+    var count = i + 1;
+    var actual = binsearch(subject, input, comparator);
+    if (actual === expected) {
+      console.log("ok " + count + " - search for " + input + " returns " + expected);
+    } else {
+      ok = false;
+      console.log("not ok " + count + " - expected output for input " + input + " to be " + expected + " but was " + actual);
+    }
+  });
   return ok;
 }
 
