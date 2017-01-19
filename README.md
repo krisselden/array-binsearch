@@ -42,7 +42,7 @@ function comparator(a, b) {
 }
 
 function add(set, val) {
-  var i = binsearch(set, val);
+  var i = binsearch(set, val, comparator);
   if (i < 0) {
     i = ~i;
     set.splice(i, 0, val);
